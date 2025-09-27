@@ -1,0 +1,78 @@
+タイトル：
+IaC×運用×セキュリティが揃った“小さな本番環境”
+
+目的：
+AWS上に、実務を想定した三層構成（VPC/ALB+EC2/RDS）をTerraformでコード化。
+監視・通知・セキュリティ・CI/CDまで含めた“ミニ本番環境”を構築し、
+実務で求められるクラウドインフラ運用力をアピールする。
+
+技術スタック：
+- AWS：VPC, ALB, EC2, RDS, S3, IAM, CloudWatch, Config, CloudTrail, SNS, Lambda
+- IaC：Terraform（モジュール化、S3+DynamoDBによるState管理）
+- CI/CD：GitHub Actions（OIDC連携、Secrets非依存）
+- 開発：Python(Flask) API、静的サイト（index.html）
+
+構成要素：
+- ネットワーク：
+  - VPC（2AZ、Public/Private分離、NAT Gateway 1基、S3/DynamoDB VPCエンドポイント）
+- アプリケーション：
+  - ALB + AutoScalingGroup（EC2/SSM接続のみ、SSH禁止、IMDSv2必須）
+- データベース：
+  - RDS MySQL（単一AZ、自動バックアップ/PITR有効）
+- ストレージ：
+  - S3 logs（CloudTrail, ALBアクセスログ, アプリログ集約）
+    → ライフサイクル：30日でIA、180日でGlacier、365日削除
+  - S3 assets（静的アセット配布用）
+    → ライフサイクル：60日でIA、365日削除
+- 監視・通知：
+  - CloudWatch（CPU高騰/ELB5xx/Target5xx/StatusCheckFailedなど）
+  - 通知ルート：CloudWatch → SNS → Lambda → Slack
+  - Runbook整備（障害時の対応手順書）
+- セキュリティ：
+  - IAM最小権限設計（運用者/CI/CD/監査でロール分離）
+  - ALBは80→443リダイレクト、ACMによる証明書管理
+  - S3 Public Block有効化
+  - AWS Config：restricted-ssh, s3-bucket-public-read-prohibited, cloudtrail-enabled
+  - Secrets Manager：RDSパスワード、Slack Webhook等の管理
+
+CI/CD：
+- GitHub Actions OIDCでAWS AssumeRole（長期キー不使用）
+- PR：terraform plan、main：terraform apply
+- SecretsはARNのみ渡し、機密はAWS Secrets Managerに格納
+- GitHub Environmentsでapply前にレビューガード設定
+
+成果物：
+- GitHub公開リポジトリ構成
+  - /infra/terraform/modules（vpc, alb, asg_ec2, rds, s3, cloudwatch, sns_slack, iam_oidc_github）
+  - /envs/prod
+  - /app（hello-api, static-site）
+- ドキュメント
+  - README（概要）
+  - ARCHITECTURE（構成図・説明）
+  - RUNBOOK（運用手順）
+  - COST（コスト見積もり）
+  - SECURITY（セキュリティ対策まとめ）
+- スクリーンショット
+  - 構成図
+  - Slack通知の実例
+  - GitHub Actionsの実行ログ
+
+受け入れ基準（SLO）：
+- terraform apply後30分以内に稼働
+- ALB経由でHTTP 200が返ること
+- AutoScalingGroupによる自己復旧が確認できること
+- Slackに監視アラームが通知されること
+- SSMでEC2へ接続可能（踏み台なし）
+- GitHub Actions（OIDC）でapply可能
+- terraform destroyで撤収可能（S3ログはforce destroy）
+
+差別化ポイント：
+- 実務寄り：監視・通知・セキュリティ・CI/CDまでフルカバー
+- セキュア：SSH禁止・Secrets非依存・IAM最小権限・Configルール
+- 再現性：Terraformによる一発構築、ドキュメント整備
+- 採用目線：個人でゼロから設計・構築した「運用可能な環境」を提示
+
+補足：
+- 初期はHTTPで稼働させ、後からACMを付与することでapplyを高速化
+- terraform -parallelism=10を活用してデプロイ時間短縮
+- 追加要素としてWAF/CloudFront/Spot混在のいずれかを検討中
