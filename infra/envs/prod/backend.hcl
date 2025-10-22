@@ -2,4 +2,4 @@
 key            = "prod/terraform.tfstate"
 region         = "ap-northeast-1"
 dynamodb_table = "mini-prod-tflock"
-encrypt        = true
+profile        = "mini"
