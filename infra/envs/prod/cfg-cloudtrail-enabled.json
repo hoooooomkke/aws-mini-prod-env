@@ -1,0 +1,4 @@
+{
+  "ConfigRuleName": "cloudtrail-enabled",
+  "Source": { "Owner": "AWS", "SourceIdentifier": "CLOUD_TRAIL_ENABLED" }
+}
