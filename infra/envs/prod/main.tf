@@ -53,7 +53,7 @@ output "alb_dns_name" {
 }
 module "s3_logs" {
   source        = "../../modules/s3_logs"
-  project       = var.project   # => terraform.tfvars の project を使用("mini-prod")
-  env           = var.env       # => terraform.tfvars の env を使用("prod")
+  project       = var.project # => terraform.tfvars の project を使用("mini-prod")
+  env           = var.env     # => terraform.tfvars の env を使用("prod")
   force_destroy = false
 }
