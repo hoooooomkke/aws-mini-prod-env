@@ -1,0 +1,10 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    { "Effect": "Allow", "Action": [
+      "cloudtrail:*","config:*","iam:CreateRole","iam:DeleteRole","iam:PutRolePolicy",
+      "iam:DeleteRolePolicy","iam:AttachRolePolicy","iam:DetachRolePolicy","iam:PassRole","iam:GetRole",
+      "lambda:*","logs:*","secretsmanager:*","sns:*","cloudwatch:PutMetricAlarm","cloudwatch:DeleteAlarms","cloudwatch:DescribeAlarms"
+    ], "Resource": "*" }
+  ]
+}

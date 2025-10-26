@@ -1,0 +1,5 @@
+{
+  "Records": [
+    { "Sns": { "Message": "{\"hello\":\"world\"}" } }
+  ]
+}
