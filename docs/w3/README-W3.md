@@ -25,3 +25,14 @@
 - cloudwatch-alarms.json / sns-topics.json / sns-subscriptions.json
 - alb_status.txt（任意）
 
+
+## 実行実績（抜粋）
+
+- SSM PortForward 成功 (`AWS-StartPortForwardingSessionToRemoteHost`)
+- MySQL 接続: `ssl-mode=VERIFY_CA` / `TLSv1.3` / `TLS_AES_128_GCM_SHA256`
+  - `SHOW SESSION STATUS LIKE 'Ssl_version';` → TLSv1.3
+  - `SHOW SESSION STATUS LIKE 'Ssl_cipher';` → TLS_AES_128_GCM_SHA256
+- `appdb` 作成・`app_user` 作成＆接続・CRUD 確認（`t1` テーブル）
+- RDS パラメータ: `require_secure_transport = ON`
+- 監視: CloudWatch / SNS 一覧を `docs/w3` に保存
+- SSM セッションログ: ロググループ `/aws/ssm/session`（保持は任意）
