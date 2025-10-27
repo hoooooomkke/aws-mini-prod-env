@@ -1,4 +1,5 @@
-﻿
+﻿[![Terraform](https://img.shields.io/badge/Terraform-AWS-623CE4)](#) [![CI](https://img.shields.io/badge/GitHub%20Actions-plan%20on%20PR-blue)](#)
+
 > 📚 **Docs Index:** [docs/INDEX.md](./docs/INDEX.md)
 # 小さな本番環境 on AWS（Terraform）
 
@@ -48,4 +49,5 @@ screenshots/
 - Slackに4種通知／SSM運用／OIDC apply／destroyで撤収可
 
 - Evidence: see [docs/evidence/](./docs/evidence/) for proofs
+
 
