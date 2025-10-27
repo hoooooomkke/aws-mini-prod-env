@@ -3,7 +3,7 @@
 *.tfstate*
 crash.log
 .vscode/
-screenshots/
+
 
 *.bak
 
