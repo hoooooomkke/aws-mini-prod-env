@@ -18,7 +18,7 @@
 - SSM log group: /aws/ssm/session
 - App Secret: mini-prod/appdb/credentials
 
-## 添付（docs/w3）
+## 添付（docs/evidence/database-rds-secrets）
 - terraform-outputs.json / terraform-state-list.txt
 - ssm-instance-info.json / ec2-iam-instance-profile.json / cwlogs-ssm-session-loggroup.json
 - rds-parameter-require_secure_transport.json / rds-instance-summary.json
@@ -34,5 +34,7 @@
   - `SHOW SESSION STATUS LIKE 'Ssl_cipher';` → TLS_AES_128_GCM_SHA256
 - `appdb` 作成・`app_user` 作成＆接続・CRUD 確認（`t1` テーブル）
 - RDS パラメータ: `require_secure_transport = ON`
-- 監視: CloudWatch / SNS 一覧を `docs/w3` に保存
+- 監視: CloudWatch / SNS 一覧を `docs/evidence/database-rds-secrets` に保存
 - SSM セッションログ: ロググループ `/aws/ssm/session`（保持は任意）
+
+

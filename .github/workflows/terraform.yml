@@ -31,16 +31,24 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
-        run: terraform -chdir=infra/envs/prod init \
-          -backend-config="bucket=${{ env.TF_STATE_BUCKET }}" \
-          -backend-config="key=prod/terraform.tfstate" \
-          -backend-config="region=${{ env.AWS_REGION }}" \
-          -backend-config="dynamodb_table=${{ env.TF_LOCK_TABLE }}"
+        shell: bash
+        run: |
+          terraform -chdir=infra/envs/prod init \
+            -backend-config="bucket=${{ env.TF_STATE_BUCKET }}" \
+            -backend-config="key=prod/terraform.tfstate" \
+            -backend-config="region=${{ env.AWS_REGION }}" \
+            -backend-config="dynamodb_table=${{ env.TF_LOCK_TABLE }}"
+
+      - name: Terraform Validate
+        shell: bash
+        run: terraform -chdir=infra/envs/prod validate -no-color
 
       - name: Terraform Plan (PR)
         if: ${{ github.event_name == 'pull_request' }}
-        run: terraform -chdir=infra/envs/prod plan
+        shell: bash
+        run: terraform -chdir=infra/envs/prod plan -no-color -input=false -refresh=false
 
       - name: Terraform Apply (main)
-        if: ${{ github.event_name == 'push' }}
-        run: terraform -chdir=infra/envs/prod apply -auto-approve
+        if: ${{ false && github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+        shell: bash
+        run: terraform -chdir=infra/envs/prod apply -auto-approve -input=false -no-color
