@@ -1,4 +1,6 @@
-﻿# 小さな本番環境 on AWS（Terraform）
+﻿
+> 📚 **Docs Index:** [docs/INDEX.md](./docs/INDEX.md)
+# 小さな本番環境 on AWS（Terraform）
 
 AWS（ap-northeast-1）に **VPC / ALB+ASG(EC2) / RDS(MySQL) / S3(Logs) / 監視通知 / CI/CD(OIDC)** を最小コストで構築するポートフォリオ。
 
@@ -46,3 +48,4 @@ screenshots/
 - Slackに4種通知／SSM運用／OIDC apply／destroyで撤収可
 
 - Evidence: see [docs/evidence/](./docs/evidence/) for proofs
+
