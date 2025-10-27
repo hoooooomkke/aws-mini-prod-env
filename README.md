@@ -44,3 +44,5 @@ screenshots/
 ## 成功基準（SLO）
 - `apply`から30分以内に稼働／ALB経由200／ASG自己復旧  
 - Slackに4種通知／SSM運用／OIDC apply／destroyで撤収可
+
+- Evidence: see [docs/evidence/](./docs/evidence/) for proofs
