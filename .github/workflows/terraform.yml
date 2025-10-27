@@ -43,11 +43,10 @@ jobs:
         shell: bash
         run: terraform -chdir=infra/envs/prod validate -no-color
 
-- name: Terraform Plan (PR)
-  if: ${{ github.event_name == 'pull_request' }}
-  shell: bash
-  run: terraform -chdir=infra/envs/prod plan -no-color -input=false -refresh=false
-
+      - name: Terraform Plan (PR)
+        if: ${{ github.event_name == 'pull_request' }}
+        shell: bash
+        run: terraform -chdir=infra/envs/prod plan -no-color -input=false -refresh=false
 
       - name: Terraform Apply (main)
         if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
