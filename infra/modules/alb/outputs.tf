@@ -1,4 +1,12 @@
-﻿output "alb_arn"          { value = aws_lb.this.arn }
-output "alb_dns_name"     { value = aws_lb.this.dns_name }
-output "alb_sg_id"        { value = aws_security_group.alb_sg.id }
-output "target_group_arn" { value = aws_lb_target_group.this.arn }
+﻿# ALB module outputs
+
+# ALB DNSなど他の出力が既にあるなら残しつつ、以下を追加
+output "alb_arn_suffix" {
+  description = "ARN suffix of the ALB (for CW metrics)"
+  value       = aws_lb.this.arn_suffix
+}
+
+output "target_group_arn_suffix" {
+  description = "ARN suffix of the Target Group (for CW metrics)"
+  value       = aws_lb_target_group.this.arn_suffix
+}
