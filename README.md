@@ -5,7 +5,7 @@
 <!-- TODO: put screenshots/architecture.png and uncomment next line -->
 <!-- ![architecture](./screenshots/architecture.png) -->
 
-**AWS(ap-northeast-1)に VPC / ALB+ASG(EC2) / RDS(MySQL) / S3(Logs) / 監視通知 / CI/CD(OIDC) を最小コストで構築するポートフォリオ。**  
+**AWS(ap-northeast-1)に VPC / ALB+ASG(EC2) / RDS(MySQL) / S3(Logs) / 監視通知 / CI/CD(OIDC) を最小コストで構築。**  
 再現性・セキュリティ・運用性を重視し、すべてをコード化。
 
 ### 特徴（Highlights）
